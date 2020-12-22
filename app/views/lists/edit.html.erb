@@ -1,6 +1,6 @@
 <h1>Editing List</h1>
-
-<%= render 'form', list: @list %>
-
+<%= turbo_frame_tag "list" do %>
+  <%= render 'form', list: @list %>
+<% end %>
 <%= link_to 'Show', @list %> |
 <%= link_to 'Back', lists_path %>
