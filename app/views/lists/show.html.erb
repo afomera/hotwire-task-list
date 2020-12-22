@@ -6,6 +6,8 @@
     <%= link_to 'Back', lists_path, "data-turbo-frame": "_top" %>
   </p>
 <% end %>
+<h2>Tasks</h2>
 <div id="tasks">
   <%= render(@list.tasks) %>
 </div>
+<%= turbo_frame_tag "new_task", src: new_list_task_path(@list), target: "_top" %>
