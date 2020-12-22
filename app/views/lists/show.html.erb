@@ -1,4 +1,5 @@
 <p id="notice"><%= notice %></p>
+<%= turbo_stream_from @list %>
 <%= turbo_frame_tag "list" do %>
   <%= render @list %>
   <p>

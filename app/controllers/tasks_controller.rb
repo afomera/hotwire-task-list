@@ -9,8 +9,8 @@ class TasksController < ApplicationController
     @task = @list.tasks.new(task_params)
 
     if @task.save
-      # TODO AC response
       respond_to do |format|
+        format.turbo_stream
         format.html { redirect_to @task.list }
       end
     else
