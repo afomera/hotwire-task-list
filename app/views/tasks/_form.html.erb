@@ -1,0 +1,15 @@
+  <%= form_with(model: [ task.list, task ],
+   data: { controller: "reset_form", action: "turbo:submit-end->reset_form#reset" }) do |form| %>
+  <% if form.object.errors.any? %>
+    <h2>Please fix the following errors:</h2>
+    <ul>
+      <% form.object.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div class="field">
+    <%= form.text_field :name %>
+    <%= form.submit "Send" %>
+  </div>
+<% end %>

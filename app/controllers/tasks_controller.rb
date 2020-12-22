@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_list
+  before_action :set_task, only: [:destroy]
 
   def new
     @task = @list.tasks.new
@@ -14,7 +15,19 @@ class TasksController < ApplicationController
         format.html { redirect_to @task.list }
       end
     else
-      render :new
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream }
+        format.html { render :new }
+      end
+    end
+  end
+
+  def destroy
+    @task.destroy!
+
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@task) }
+      format.html         { redirect_to lists_url(@list), notice: "Task removed" }
     end
   end
 
@@ -26,5 +39,9 @@ class TasksController < ApplicationController
 
   def set_list
     @list = List.find(params[:list_id])
+  end
+
+  def set_task
+    @task = @list.tasks.find(params[:id])
   end
 end
